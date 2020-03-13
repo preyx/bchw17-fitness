@@ -1,6 +1,6 @@
 const express = require('express')
 const { join } = require('path')
-const { Workout } = require('./models')
+// const { Workout } = require('./models')
 const app = express()
 
 app.use(express.static(join(__dirname, 'public')))
