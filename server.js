@@ -21,5 +21,5 @@ app.get('/stats', (req, res) => {
 })
 
 require('./config')
-  .then(() => app.listen(3000))
+  .then(() => app.listen(process.env.PORT || 3000))
   .catch(e => console.error(e))
