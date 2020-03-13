@@ -1,45 +1,34 @@
 const router = require('express').Router()
 const { Workout } = require('../models')
 
-// GET all items
+// GET all workouts
 router.get('/workouts', (req, res) => Workout.find()
   .then(workouts => res.json(workouts))
   .catch(e => console.error(e)))
 
-// POST one item
+// POST one workout
 router.post('/workouts', (req, res) => {
-  console.log(req.body)
-  // Item.create({
-  //   text: req.body.text,
-  //   isDone: req.body.isDone,
-  //   owner: req.user._id
-  // })
-  //   .then(({ _id }) => {
-  //     User.findByIdAndUpdate(req.user._id, { $push: { items: _id } })
-  //       .then(() => res.sendStatus(200))
-  //   })
-  //   .catch(e => console.error(e))
+  Workout.create(req.body)
+    .then(() => res.sendStatus(200))
+    .catch(e => console.error(e))
 })
 
-// PUT one item
-router.put('/workouts', (req, res) => {
+// PUT one exercise in workout
+router.put('/workouts/:id', (req, res) => {
   console.log(req.body)
+  Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } }, { new: true, runValidators: true })
+    .then(() => res.sendStatus(200))
+    .catch(e => console.error(e))
 })
 
-// Item.findByIdAndUpdate(req.params.id, req.body)
-//   .then(() => res.sendStatus(200))
-//   .catch(e => console.error(e)))
-
-// DELETE one item
+// GET workouts in range
 router.get('/workouts/range', (req, res) => {
+  Workout.find().limit(7)
+    .then(workout => {
+      res.json(workout)
+    })
+    .catch(e => console.error(e))
   console.log(req.body)
 })
-
-// Item.findByIdAndDelete(req.params.id)
-//   .then(({ _id, owner }) => {
-//     User.findByIdAndUpdate(owner, { $pull: { items: _id } })
-//       .then(() => res.sendStatus(200))
-//   })
-//   .catch(e => console.error(e)))
 
 module.exports = router
