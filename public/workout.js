@@ -8,7 +8,7 @@ async function initWorkout() {
 
     let sum = 0
 
-    for(let i = 0; i < lastWorkout.exercises.length; i++) {
+    for (let i = 0; i < lastWorkout.exercises.length; i++) {
       sum += parseInt(lastWorkout.exercises[i].duration)
     }
 
