@@ -8,7 +8,10 @@ router.get('/workouts', (req, res) => Workout.find()
 
 // POST one workout
 router.post('/workouts', (req, res) => {
-  Workout.create(req.body)
+  Workout.create({
+    day: new Date().getDate(),
+    exercises: [ req.body ]
+  })
     .then(() => res.sendStatus(200))
     .catch(e => console.error(e))
 })
